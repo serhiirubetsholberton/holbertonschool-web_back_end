@@ -8,9 +8,4 @@ export default function handleProfileSignup() {
           console.log(body, firstName, lastName);
         });
     });
-
-  createUser()
-    .then(({ firstName, lastName }) => {
-      console.log(firstName, lastName);
-    });
 }
