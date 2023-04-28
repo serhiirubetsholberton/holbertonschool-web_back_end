@@ -5,7 +5,7 @@ export default class HolbertonCourse {
       throw new Error('Name must be a string');
     }
 
-    if (typeof name !== 'number') {
+    if (typeof length !== 'number') {
       throw new Error('Length must be a number');
     }
 
