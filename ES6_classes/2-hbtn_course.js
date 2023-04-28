@@ -45,10 +45,9 @@ export default class HolbertonCourse {
   }
 
   set students(value) {
-    console.log(value, 'HERE:');
     if (!Array.isArray(value)) {
       throw new Error('Students must be an array');
     }
-    this._sudents = value;
+    this._students = value;
   }
 }
