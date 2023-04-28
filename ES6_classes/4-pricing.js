@@ -1,4 +1,8 @@
 export default class Pricing {
+  static convertPrice(amount, conversionRate) {
+    return amount * conversionRate;
+  }
+
   constructor(amount, currency) {
     this._amount = amount;
     this._currency = currency;
@@ -21,6 +25,6 @@ export default class Pricing {
   }
 
   displayFullPrice() {
-    return `${this.amount} ${this.currency.displayFullCurrency()}`
+    return `${this.amount} ${this.currency.displayFullCurrency()}`;
   }
 }
