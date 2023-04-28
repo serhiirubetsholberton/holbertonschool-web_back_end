@@ -1,6 +1,5 @@
 export default class HolbertonCourse {
   constructor(name, length, students) {
-
     if (typeof name !== 'string') {
       throw new Error('Name must be a string');
     }
@@ -46,7 +45,7 @@ export default class HolbertonCourse {
   }
 
   set students(value) {
-    console.log(value, 'HERE:')
+    console.log(value, 'HERE:');
     if (!Array.isArray(value)) {
       throw new Error('Students must be an array');
     }
