@@ -1,3 +1,10 @@
 export default function guardrail(mathFunction) {
-  return [mathFunction(), 'Guardrail was processed'];
+  let candidate = 0;
+  try {
+    candidate = mathFunction();
+  } catch (err) {
+    candidate = err.toString();
+  }
+
+  return [candidate, 'Guardrail was processed'];
 }
