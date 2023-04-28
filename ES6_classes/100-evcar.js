@@ -8,7 +8,7 @@ export default class EVCar extends Car {
   }
 
   cloneCar() {
+    console.log(this);
     return new Car(undefined, undefined, undefined);
   }
 }
-

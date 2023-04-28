@@ -14,4 +14,3 @@ export default class Car {
     return new Species(this._brand, this._motor, this._color);
   }
 }
-
