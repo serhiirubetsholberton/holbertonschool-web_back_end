@@ -6,22 +6,22 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
   return signUpUser(firstName, lastName)
     .then((userResult) => {
       result.push({
-        status: 'success',
+        status: 'fulfilled',
         value: userResult,
       });
 
-      uploadPhoto(fileName)
+      return uploadPhoto(fileName)
         .then((photoResult) => {
           result.push({
-            status: 'success',
+            status: 'fulfilled',
             value: photoResult,
           });
           return result;
         })
         .catch((photoError) => {
           result.push({
-            status: 'error',
-            value: photoError,
+            status: 'rejected',
+            value: photoError.toString(),
           });
           return result;
         });
