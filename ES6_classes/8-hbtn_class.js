@@ -4,19 +4,19 @@ export default class HolbertonClass {
     this._location = location;
   }
 
-  get size() {
+  get location() {
     return this._location;
   }
 
-  set size(value) {
+  set location(value) {
     this._location = value;
   }
 
-  get location() {
+  get size() {
     return this._size;
   }
 
-  set location(value) {
+  set size(value) {
     this._size = value;
   }
 
