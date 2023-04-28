@@ -15,7 +15,7 @@ export default class HolbertonCourse {
 
     this._length = length;
     this._name = name;
-    this._sudents = students;
+    this._students = students;
   }
 
   get name() {
@@ -23,6 +23,9 @@ export default class HolbertonCourse {
   }
 
   set name(value) {
+    if (typeof value !== 'string') {
+      throw new Error('Name must be a string');
+    }
     this._name = value;
   }
 
@@ -31,14 +34,22 @@ export default class HolbertonCourse {
   }
 
   set length(value) {
+    if (typeof value !== 'number') {
+      throw new Error('Length must be a number');
+    }
+
     this._length = value;
   }
 
-  get sudents() {
+  get students() {
     return this._sudents;
   }
 
-  set sudents(value) {
+  set students(value) {
+    console.log(value, 'HERE:')
+    if (!Array.isArray(value)) {
+      throw new Error('Students must be an array');
+    }
     this._sudents = value;
   }
 }
