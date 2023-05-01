@@ -7,6 +7,6 @@ export function queryAPI(endpoint) {
     throw new Error('Endpoint load is high');
   }
 
-  const count = prevCallsCount > 0 ? prevCallsCount + 1 : 0;
+  const count = prevCallsCount > 0 ? prevCallsCount + 1 : 1;
   weakMap.set(endpoint, count);
 }
