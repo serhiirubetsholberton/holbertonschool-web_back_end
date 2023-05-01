@@ -2,8 +2,10 @@ export default function cleanSet(set, startString) {
   let result = '';
 
   set.forEach((value) => {
-    if (value.startsWith(startString)) {
-      result += `-${value.substring(startString.length)}`;
+    console.log(value)
+    if (value && value.startsWith(startString)) {
+      const prefix = result === '' ? '' : '-';
+      result += `${prefix}${value.substring(startString.length)}`;
     }
   });
 
