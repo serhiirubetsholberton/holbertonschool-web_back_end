@@ -2,6 +2,10 @@
 import re
 from typing import List
 
+"""
+Filtered logger module
+"""
+
 
 def filter_datum(
     fields: List[str], redaction: str, message: str, separator: str
@@ -9,7 +13,6 @@ def filter_datum(
     """returns the log message obfuscated"""
     for item in fields:
         message = re.sub(
-            rf"{item}=.+?{separator}",
-            f"{item}={redaction}{separator}", message
+            rf"{item}=.+?{separator}", f"{item}={redaction}{separator}", message
         )
     return message
