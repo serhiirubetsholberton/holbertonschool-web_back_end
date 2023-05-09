@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-import re
-from typing import List
-
 """
 Filtered logger module
 """
+
+import re
+from typing import List
 
 
 def filter_datum(
@@ -13,6 +13,7 @@ def filter_datum(
     """returns the log message obfuscated"""
     for item in fields:
         message = re.sub(
-            rf"{item}=.+?{separator}", f"{item}={redaction}{separator}", message
+            rf"{item}=.+?{separator}",
+            f"{item}={redaction}{separator}", message
         )
     return message
