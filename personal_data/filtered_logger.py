@@ -3,7 +3,7 @@ import re
 from typing import List
 
 """
-Filtered logger module
+Filtered logger module 
 """
 
 
