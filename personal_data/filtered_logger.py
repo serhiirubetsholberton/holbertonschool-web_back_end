@@ -14,9 +14,7 @@ class RedactingFormatter(logging.Formatter):
     def filter_datum(
         fields: List[str], redaction: str, message: str, separator: str
     ) -> str:
-        """Description: Regex-ing - Write a function called filter_datum that
-                    returns the log message obfuscated:
-
+        """
         Arguments:
             fields: a list of strings representing all fields to obfuscate
             redaction: a string representing by what the field will be
