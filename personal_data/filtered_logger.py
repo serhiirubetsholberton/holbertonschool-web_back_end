@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-import logging
-
 """
 Filtered logger module
 """
 
 import re
+import logging
 from typing import List
 
 
