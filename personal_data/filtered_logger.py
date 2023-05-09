@@ -17,7 +17,7 @@ class RedactingFormatter(logging.Formatter):
     ) -> str:
         """[summary]
         Args:
-            fields (List[str])
+            fields: (List[str])
             redaction: str
             message: str
             separator: str
