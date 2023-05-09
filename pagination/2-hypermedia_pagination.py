@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """ Simple pagination """
-from ast import Dict
 import csv
 import math
-from typing import Any, List
+from typing import List, Dict, Any
 
 
 def index_range(page, page_size):
@@ -50,11 +49,11 @@ class Server:
         assert type(page) == int and page > 0
         assert type(page_size) == int and page_size > 0
         total_pages = math.floor(len(self.dataset()) / page_size)
-
+        data = self.get_page(page, page_size)
         return {
-            "page_size": len(self.get_page(page, page_size)),
+            "page_size": len(data),
             "page": page,
-            "data": self.get_page(page, page_size),
+            "data": data,
             "next_page": page + 1 if page + 1 < total_pages else None,
             "prev_page": page - 1 if page > 1 else None,
             "total_pages": total_pages,
