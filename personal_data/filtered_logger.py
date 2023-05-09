@@ -16,7 +16,7 @@ class RedactingFormatter(logging.Formatter):
     ) -> str:
         """
         Arguments:
-            fields: a list of strings representing all fields to obfuscate
+            fields (List[str]): a list of strings representing all fields to obfuscate
             redaction: a string representing by what the field will be
                     obfuscated
             message: a string representing the log line
