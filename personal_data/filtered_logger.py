@@ -29,6 +29,9 @@ class RedactingFormatter(logging.Formatter):
         field values.
         filter_datum should be less than 5 lines long and use re.sub to
         perform the substitution with a single regex.
+
+        Returns:
+            str: message obfuscated
         """
         for item in fields:
             message = re.sub(
