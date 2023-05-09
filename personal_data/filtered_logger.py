@@ -25,7 +25,8 @@ def filter_datum(
 
 
 def get_logger() -> logging.Logger:
-    """Description: Implement a get_logger function that takes no arguments and returns a logging.Logger object."""
+    """Description: Implement a get_logger function
+    that takes no arguments and returns a logging.Logger object."""
     log = logging.getLogger("user_data")
     log.setLevel(logging.INFO)
     log.propagate = False
