@@ -52,6 +52,31 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return connection_db
 
 
+def main():
+    """obtain a database connection using get_db and retrieve all rows in the
+    users table and display each row under a filtered format"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    result = cursor.fetchall()
+    for row in result:
+        message = (
+            f"name={row[0]}; "
+            + f"email={row[1]}; "
+            + f"phone={row[2]}; "
+            + f"ssn={row[3]}; "
+            + f"password={row[4]};"
+        )
+        print(message)
+        log_record = logging.LogRecord(
+            "my_logger", logging.INFO, None, None, message, None, None
+        )
+        formatter = RedactingFormatter(PII_FIELDS)
+        formatter.format(log_record)
+    cursor.close()
+    db.close()
+
+
 class RedactingFormatter(logging.Formatter):
     """Redacting Formatter class"""
 
@@ -73,3 +98,7 @@ class RedactingFormatter(logging.Formatter):
             super(RedactingFormatter, self).format(record),
             self.SEPARATOR,
         )
+
+
+if __name__ == "__main__":
+    main()
