@@ -6,5 +6,4 @@ from models.user import User
 
 
 class SessionAuth(Auth):
-    """ Session Auth class"""
-    
+    """Session Auth class"""
