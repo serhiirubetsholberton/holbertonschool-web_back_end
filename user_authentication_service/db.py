@@ -3,10 +3,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
-
+from typing import TypeVar
 from user import Base
 from user import User
 
@@ -39,7 +38,7 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs) -> User:
-        """ Finds user by key word args
+        """Finds user by key word args
         Return: First row found in the users table as filtered by kwargs
         """
         if not kwargs:
