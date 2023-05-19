@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-""" Database for ORM """
-
+""" Create user, Find user, Update user """
 from sqlalchemy import create_engine
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from typing import TypeVar
-from user import Base
-from user import User
+from user import Base, User
 
 
 class DB:
@@ -39,20 +37,12 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs) -> User:
-        """Finds user by key word args
-        Return: First row found in the users table as filtered by kwargs
-        """
-        if not kwargs:
+        """takes in arbitrary keyword arguments and returns the first row
+        found in the users table as filtered by the method’s input
+        arguments"""
+        if kwargs is None:
             raise InvalidRequestError
-
-        column_names = User.__table__.columns.keys()
-        for key in kwargs.keys():
-            if key not in column_names:
-                raise InvalidRequestError
-
         user = self._session.query(User).filter_by(**kwargs).first()
-
         if user is None:
             raise NoResultFound
-
         return user
