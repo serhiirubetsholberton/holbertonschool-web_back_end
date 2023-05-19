@@ -29,13 +29,18 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """Adds user to database
-        Return: User Object
         """
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
-        self._session.commit()
-        return user
+        ----------------
+        METHOD: add_user
+        ----------------
+        Description:
+            Adds a user to the database
+        """
+        if type(email) is str and type(hashed_password) in [str, bytes]:
+            user = User(email=email, hashed_password=hashed_password)
+            self._session.add(user)
+            self._session.commit()
+            return user
 
     def find_user_by(self, **kwargs) -> User:
         """takes in arbitrary keyword arguments and returns the first row
