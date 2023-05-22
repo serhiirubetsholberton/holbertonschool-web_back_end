@@ -6,6 +6,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
+
+
 from typing import TypeVar
 from user import Base, User
 
@@ -29,26 +31,44 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
+        """add user method
+
+        Args:
+            email (str): email
+            hashed_password (str): password
+
+        Returns:
+            User: User object
         """
-        ----------------
-        METHOD: add_user
-        ----------------
-        Description:
-            Adds a user to the database
-        """
-        if type(email) is str and type(hashed_password) in [str, bytes]:
-            user = User(email=email, hashed_password=hashed_password)
-            self._session.add(user)
-            self._session.commit()
-            return user
+        user = User(email=email, hashed_password=hashed_password)
+        self._session.add(user)
+        self._session.commit()
+        return user
 
     def find_user_by(self, **kwargs) -> User:
-        """takes in arbitrary keyword arguments and returns the first row
-        found in the users table as filtered by the method’s input
-        arguments"""
-        if kwargs is None:
+        """Find user by attribute
+
+        Returns:
+            User: Returns the user if succeed
+        """
+        if not kwargs:
             raise InvalidRequestError
         user = self._session.query(User).filter_by(**kwargs).first()
-        if user is None:
+        if not user:
             raise NoResultFound
         return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update user method
+
+        Args:
+            user_id (int): User id
+        """
+        user = self.find_user_by(id=user_id)
+        if user:
+            for key, value in kwargs.items():
+                if not hasattr(user, key):
+                    raise ValueError
+            for key, value in kwargs.items():
+                setattr(user, key, value)
+            self._session.commit()
