@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""
-implement password security
-"""
+""" Hash password, Register user, Credentials validation, Generate UUIDs,
+    Find user by session ID, Destroy session, Generate reset password token,
+    Update password """
 
 from uuid import uuid1
 import bcrypt
