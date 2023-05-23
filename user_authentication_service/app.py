@@ -2,12 +2,12 @@
 
 
 from flask import Flask, jsonify, request, abort, redirect, make_response
-from auth import AUTH
+from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
 
 app = Flask(__name__)
-AUTH = AUTH()
+AUTH = Auth()
 
 
 @app.route("/", methods=["GET"])
@@ -88,7 +88,7 @@ def update_password():
     email = request.form["email"]
     reset_token = request.form["reset_token"]
     new_password = request.form["new_password"]
-    user = AUTH._db.find_user_by(email=email)
+    user = Auth._db.find_user_by(email=email)
     if user:
         AUTH.update_password(reset_token, new_password)
         return (
