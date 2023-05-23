@@ -14,6 +14,11 @@ AUTH = Auth()
 
 @app.route("/", methods=["GET"])
 def get():
+    """
+        for now it only returns the
+        jsonify message,
+        only allow get request
+    """
     return jsonify({"message": "Bienvenue"})
 
 
