@@ -69,34 +69,30 @@ def profile():
     abort(403)
 
 
-@app.route("/reset_password", methods=["POST"], strict_slashes=False)
+@app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
-    """get reset token from auth module"""
-    email = request.form["email"]
+    """ Get reset passwords token, takes an email string argument and returns
+        a JSON payload """
+    email = request.form.get('email')
     try:
-        user = AUTH._db.find_user_by(email=email)
-    except NoResultFound:
+        reset_token = AUTH.get_reset_password_token(email)
+        return jsonify({"email": email, "reset_token": reset_token}), 200
+    except ValueError:
         abort(403)
-    new_token = AUTH.get_reset_password_token(email=email)
-
-    return jsonify({"email": email, "reset_token": new_token})
 
 
-@app.route("/reset_password", methods=["PUT"], strict_slashes=False)
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def update_password():
-    """update the password with token"""
-    email = request.form["email"]
-    reset_token = request.form["reset_token"]
-    new_password = request.form["new_password"]
-    user = Auth._db.find_user_by(email=email)
-    if user:
-        AUTH.update_password(reset_token, new_password)
-        return (
-            jsonify({"email": email, "message": "Password updated"}),
-            200,
-        )
-
-    abort(403)
+    """ Update password end-point, takes an email and reset_token string
+        arguments and returns a JSON payload """
+    email = request.form.get('email')
+    reset_token = request.form.get('reset_token')
+    new_pwd = request.form.get('new_password')
+    try:
+        AUTH.update_password(reset_token, new_pwd)
+        return jsonify({"email": email, "message": "Password updated"}), 200
+    except ValueError:
+        abort(403)
 
 
 if __name__ == "__main__":
