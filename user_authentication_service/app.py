@@ -2,12 +2,12 @@
 
 
 from flask import Flask, jsonify, request, abort, redirect, make_response
-from auth import Auth
+from auth import AUTH
 from sqlalchemy.orm.exc import NoResultFound
 
 
 app = Flask(__name__)
-Auth = Auth()
+AUTH = AUTH()
 
 
 @app.route("/", methods=["GET"])
@@ -21,7 +21,7 @@ def users():
     email = request.form["email"]
     password = request.form["password"]
     try:
-        Auth.register_user(email, password)
+        AUTH.register_user(email, password)
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
@@ -34,8 +34,8 @@ def login() -> str:
     email = request.form.get("email")
     password = request.form.get("password")
 
-    if Auth.valid_login(email, password):
-        sess = Auth.create_session(email)
+    if AUTH.valid_login(email, password):
+        sess = AUTH.create_session(email)
         resp = make_response({"email": email, "message": "logged in"})
         resp.set_cookie("session_id", sess)
         return resp
@@ -48,11 +48,11 @@ def logout() -> None:
     """logout view"""
     session = request.cookies.get("session_id")
     try:
-        user = Auth.get_user_from_session_id(session_id=session)
+        user = AUTH.get_user_from_session_id(session_id=session)
     except NoResultFound:
         abort(403)
     if user:
-        Auth.destroy_session(user.id)
+        AUTH.destroy_session(user.id)
         return redirect("/")
 
 
@@ -61,7 +61,7 @@ def profile():
     """return user's email"""
     session = request.cookies.get("session_id")
     try:
-        user = Auth.get_user_from_session_id(session_id=session)
+        user = AUTH.get_user_from_session_id(session_id=session)
     except NoResultFound:
         abort(403)
     if user:
@@ -74,10 +74,10 @@ def get_reset_password_token():
     """get reset token from auth module"""
     email = request.form["email"]
     try:
-        user = Auth._db.find_user_by(email=email)
+        user = AUTH._db.find_user_by(email=email)
     except NoResultFound:
         abort(403)
-    new_token = Auth.get_reset_password_token(email=email)
+    new_token = AUTH.get_reset_password_token(email=email)
 
     return jsonify({"email": email, "reset_token": new_token})
 
@@ -88,9 +88,9 @@ def update_password():
     email = request.form["email"]
     reset_token = request.form["reset_token"]
     new_password = request.form["new_password"]
-    user = Auth._db.find_user_by(email=email)
+    user = AUTH._db.find_user_by(email=email)
     if user:
-        Auth.update_password(reset_token, new_password)
+        AUTH.update_password(reset_token, new_password)
         return (
             jsonify({"email": email, "message": "Password updated"}),
             200,
