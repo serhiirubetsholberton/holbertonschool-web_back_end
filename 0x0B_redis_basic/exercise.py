@@ -23,6 +23,8 @@ def count_calls(method: Callable) -> Callable:
 
 
 def call_history(method: Callable) -> Callable:
+    '''Tracks the call details of a method in a Cache class.
+    '''
     list_key_in = f"{method.__qualname__}:inputs"
     list_key_out = f"{method.__qualname__}:outputs"
 
