@@ -44,7 +44,7 @@ def replay(method: Callable) -> None:
 class Cache:
     """store instance of redis
     """
-    def __init__(self):
+    def __init__(self) -> None:
         """initialization
         """
         # store instance of redis client
@@ -72,13 +72,13 @@ class Cache:
         if fn:
             return fn(data)
         return data
-
-    def get_str(self):
-        """parametrize get
-        """
-        pass
-
-    def get_int(self):
-        """parametrize get
-        """
-        pass
+    
+    def get_str(self, key: str) -> str:
+        '''Retrieves a string value from a Redis data storage.
+        '''
+        return self.get(key, lambda x: x.decode('utf-8'))
+    
+    def get_int(self, key: str) -> int:
+        '''Retrieves an integer value from a Redis data storage.
+        '''
+        return self.get(key, lambda x: int(x))
